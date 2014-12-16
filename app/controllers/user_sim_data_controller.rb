@@ -94,10 +94,12 @@ class UserSimDataController < ApplicationController
       @sample_array << UserSimDatum.where(:user_id=>current_user.id, :simulation_id=>params[:simulation_id], :play_count=>index+1).map{|usd| usd.no_of_slots}
     end
     @inner = Array.new()
-    @sample_array.each do |sa|
+    @no_of_slots = Array.new()
+    @sample_array.each_with_index do |sa, index|
       @inner << sa.length
+      @no_of_slots << sa.sum
     end
-    # render :json => @inner
+    # render :json => @no_of_slots
     # return
 
     # from here correct
